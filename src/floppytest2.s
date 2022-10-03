@@ -17,6 +17,8 @@ FDC_STATUS_BYTE = 4
 
 fdc_ctl = $4000
 fdc_status = $4001
+fdc_clock = $4002
+fdc_data = $4003
 
 ZP_FDC_TRACK = $40
 
@@ -57,63 +59,136 @@ reset:
   lda #FDC_CTL_MOTORON
   sta fdc_ctl
 
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
-
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
   jsr fdc_seek_track0
 
   jsr show_fdc_status
   jsr vid_textpos_newline
   jsr prompt_wait_button
 
-loop1:
-  jsr fdc_step_in
-  
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop1
+  jsr seektest
 
+  lda #10
+  jsr fdc_seek
+
+loop
+  jsr readtest
+  jsr prompt_wait_button
+  jmp loop
+
+
+seektest:
+  lda #0
+  jsr fdc_seek
   jsr show_fdc_status
   jsr vid_textpos_newline
-  jsr prompt_wait_button
 
-  jsr fdc_seek_track0
-
+  lda #79
+  jsr fdc_seek
   jsr show_fdc_status
   jsr vid_textpos_newline
-  jsr prompt_wait_button
 
-loop2:
-  jsr fdc_step_in
+  lda #24
+  jsr fdc_seek
   jsr show_fdc_status
+  jsr vid_textpos_newline
 
-  ldx #30
-  jsr delay_vsyncs
-
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop2
-
-  ldx #30
-  jsr delay_vsyncs
-
-  jsr fdc_seek_track0
+  lda #62
+  jsr fdc_seek
   jsr show_fdc_status
+  jsr vid_textpos_newline
 
-  ldx #30
-  jsr delay_vsyncs
+  lda #1
+  jsr fdc_seek
+  jsr show_fdc_status
+  jsr vid_textpos_newline
 
-  jmp loop1
+  lda #0
+  jsr fdc_seek
+  jsr show_fdc_status
+  jsr vid_textpos_newline
+
+  jmp prompt_wait_button
+
+
+readtest:
+ZP_INDEX = $80
+BUFFER = $2000
+COUNT = 11
+
+  ldy #0
+  sty ZP_INDEX
+
+readtestloop:
+  jsr fdc_read_byte
+  cpx #$c7             ; check for address mark signature in clock byte
+  bne readtestloop
+
+readtestloop2:
+  ; store the clock and data and read 10 more bytes
+  ldy ZP_INDEX
+  sta BUFFER+COUNT+1,y
+  txa
+  sta BUFFER,y
+  iny
+  sty ZP_INDEX
+  cpy #COUNT
+  beq readtestloop2_done
+
+  ; read another byte and loop
+  jsr fdc_read_byte
+  jmp readtestloop2
+
+readtestloop2_done:
+
+  ; Display all the bytes on the screen
+
+  ldy #0
+readtest_dispclkbytes_loop:
+  sty ZP_INDEX
+  lda BUFFER,y
+  jsr vid_printhex
+  inc ZP_TEXTPOS_X
+  ldy ZP_INDEX
+  iny
+  cpy #COUNT
+  bne readtest_dispclkbytes_loop
+
+  jsr vid_textpos_newline
+
+  ldy #0
+readtest_dispdatabytes_loop:
+  sty ZP_INDEX
+  lda BUFFER+COUNT+1,y
+  jsr vid_printhex
+  inc ZP_TEXTPOS_X
+  ldy ZP_INDEX
+  iny
+  cpy #COUNT
+  bne readtest_dispdatabytes_loop
+
+  jsr vid_textpos_newline
+
+  rts
+
+
+
+fdc_read_byte:
+  ; Wait until "byte" is low; then wait until "byte" is high; then read the clock into X and data into A and return
+
+  lda #FDC_STATUS_BYTE
+
+fdc_read_byte_wait_notbyte:
+  bit fdc_status
+  bne fdc_read_byte_wait_notbyte
+
+fdc_read_byte_wait_byte:
+  bit fdc_status
+  beq fdc_read_byte_wait_byte
+
+  lda fdc_data
+  ldx fdc_clock
+  rts
+
 
 
 fdc_step_in:
@@ -161,6 +236,45 @@ fdc_seek_track0:
 
 fdc_seek_track0_done:
   rts
+
+
+fdc_seek:
+  pha
+  jsr vid_printstringimm
+  .asciiz "Seek to track "
+  pla
+
+  jsr vid_printhex
+
+  pha
+  jsr vid_textpos_newline
+  pla
+
+  cmp #0
+  beq fdc_seek_track0
+fdc_seek_loop:
+  pha
+  jsr show_fdc_status
+  pla
+
+  cmp ZP_FDC_TRACK
+  bmi fdc_seek_step_out
+  bne fdc_seek_step_in
+
+  jmp vid_textpos_newline
+
+fdc_seek_step_in:
+  pha
+  jsr fdc_step_in
+  pla
+  jmp fdc_seek_loop
+
+fdc_seek_step_out:
+  pha
+  jsr fdc_step_out
+  pla
+  jmp fdc_seek_loop
+
 
 
 show_fdc_status:

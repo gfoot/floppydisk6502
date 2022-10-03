@@ -1,4 +1,4 @@
-BINFILES += bin/floppytest.out
+BINFILES += bin/floppytest.out bin/floppytest2.out
 
 all: $(BINFILES)
 
