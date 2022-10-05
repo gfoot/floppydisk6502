@@ -1,0 +1,605 @@
+EESchema Schematic File Version 4
+EELAYER 30 0
+EELAYER END
+$Descr A4 11693 8268
+encoding utf-8
+Sheet 2 3
+Title ""
+Date ""
+Rev ""
+Comp ""
+Comment1 ""
+Comment2 ""
+Comment3 ""
+Comment4 ""
+$EndDescr
+Wire Notes Line
+	1150 3350 1850 3350
+Wire Notes Line
+	1850 3350 1850 4000
+Wire Notes Line
+	1850 4000 1150 4000
+Wire Notes Line
+	1150 4000 1150 3350
+Wire Notes Line
+	2100 3350 2100 4000
+Wire Notes Line
+	2100 4000 2800 4000
+Wire Notes Line
+	2800 4000 2800 3350
+Wire Notes Line
+	2800 3350 2100 3350
+Wire Notes Line
+	3050 3350 3050 4000
+Wire Notes Line
+	3050 4000 3750 4000
+Wire Notes Line
+	3750 4000 3750 3350
+Wire Notes Line
+	3050 3350 3750 3350
+Wire Notes Line
+	4000 3350 4000 4000
+Wire Notes Line
+	4000 4000 4700 4000
+Wire Notes Line
+	4700 4000 4700 3350
+Wire Notes Line
+	4700 3350 4000 3350
+Text Notes 1300 3750 0    50   ~ 0
+Floppy\nDisk Drive
+Text Notes 2200 3750 0    50   ~ 0
+Floppy Drive\nController
+Text Notes 3150 3700 0    50   ~ 0
+CPU Interface
+Text Notes 4250 3700 0    50   ~ 0
+6502
+Wire Notes Line
+	3050 2450 3050 3100
+Wire Notes Line
+	3050 3100 3750 3100
+Wire Notes Line
+	3750 3100 3750 2450
+Wire Notes Line
+	3750 2450 3050 2450
+Text Notes 3250 2800 0    50   ~ 0
+Arduino
+Wire Bus Line
+	2100 3650 1850 3650
+Wire Bus Line
+	1850 3700 2100 3700
+Wire Bus Line
+	2800 3650 3050 3650
+Wire Bus Line
+	3050 3700 2800 3700
+Wire Bus Line
+	3750 3650 4000 3650
+Wire Bus Line
+	4000 3700 3750 3700
+Wire Notes Line
+	1150 1550 1850 1550
+Wire Notes Line
+	1850 1550 1850 2200
+Wire Notes Line
+	1850 2200 1150 2200
+Wire Notes Line
+	1150 2200 1150 1550
+Wire Notes Line
+	2100 1550 2100 2200
+Wire Notes Line
+	2100 2200 2800 2200
+Wire Notes Line
+	2800 2200 2800 1550
+Wire Notes Line
+	2800 1550 2100 1550
+Text Notes 1300 1950 0    50   ~ 0
+Floppy\nDisk Drive
+Text Notes 2200 1950 0    50   ~ 0
+Floppy Drive\nController
+Wire Bus Line
+	2100 1850 1850 1850
+Wire Bus Line
+	1850 1900 2100 1900
+Wire Notes Line
+	1150 700  1850 700 
+Wire Notes Line
+	1850 700  1850 1350
+Wire Notes Line
+	1850 1350 1150 1350
+Wire Notes Line
+	1150 1350 1150 700 
+Text Notes 1300 1100 0    50   ~ 0
+Floppy\nDisk Drive
+Wire Notes Line
+	1150 2450 1850 2450
+Wire Notes Line
+	1850 2450 1850 3100
+Wire Notes Line
+	1850 3100 1150 3100
+Wire Notes Line
+	1150 3100 1150 2450
+Wire Notes Line
+	2100 2450 2100 3100
+Wire Notes Line
+	2100 3100 2800 3100
+Wire Notes Line
+	2800 3100 2800 2450
+Wire Notes Line
+	2800 2450 2100 2450
+Text Notes 1300 2850 0    50   ~ 0
+Floppy\nDisk Drive
+Text Notes 2200 2850 0    50   ~ 0
+Floppy Drive\nController
+Wire Bus Line
+	2100 2750 1850 2750
+Wire Bus Line
+	1850 2800 2100 2800
+Wire Bus Line
+	2800 2750 3050 2750
+Wire Bus Line
+	3050 2800 2800 2800
+$Sheet
+S 12350 2500 1650 1700
+U 63324D0F
+F0 "CPU Interface" 50
+F1 "cpuinterface.sch" 50
+F2 "~T0" I L 12350 2650 50 
+F3 "~WP" I L 12350 2800 50 
+F4 "~IDX" I L 12350 2950 50 
+F5 "BYTE" I L 12350 3250 50 
+F6 "AM" I L 12350 3400 50 
+F7 "DIR" O R 14000 2650 50 
+F8 "STEP" O R 14000 2800 50 
+F9 "SS0" O R 14000 2950 50 
+F10 "DS0" O R 14000 3100 50 
+F11 "~CS" I R 14000 3750 50 
+F12 "RS" I R 14000 3950 50 
+F13 "R~W" I R 14000 3850 50 
+F14 "D[0..7]" T R 14000 4050 50 
+$EndSheet
+Wire Notes Line
+	6950 1250 6950 3100
+Wire Notes Line
+	6950 3100 8400 3100
+Wire Notes Line
+	8400 3100 8400 1250
+Wire Notes Line
+	8400 1250 6950 1250
+Wire Wire Line
+	6950 1400 6750 1400
+Wire Wire Line
+	6150 1550 6550 1550
+Wire Wire Line
+	6950 1700 6350 1700
+$Comp
+L Device:R R?
+U 1 1 6332C0BC
+P 6750 1200
+F 0 "R?" H 6820 1246 50  0001 L CNN
+F 1 "R" H 6820 1200 50  0001 L CNN
+F 2 "" V 6680 1200 50  0001 C CNN
+F 3 "~" H 6750 1200 50  0001 C CNN
+	1    6750 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6332CC17
+P 6550 1200
+F 0 "R?" H 6620 1246 50  0001 L CNN
+F 1 "R" H 6620 1200 50  0001 L CNN
+F 2 "" V 6480 1200 50  0001 C CNN
+F 3 "~" H 6550 1200 50  0001 C CNN
+	1    6550 1200
+	1    0    0    -1  
+$EndComp
+$Comp
+L Device:R R?
+U 1 1 6332CE12
+P 6350 1200
+F 0 "R?" H 6420 1246 50  0001 L CNN
+F 1 "R" H 6420 1200 50  0001 L CNN
+F 2 "" V 6280 1200 50  0001 C CNN
+F 3 "~" H 6350 1200 50  0001 C CNN
+	1    6350 1200
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	6750 1350 6750 1400
+Connection ~ 6750 1400
+Wire Wire Line
+	6750 1400 6150 1400
+Wire Wire Line
+	6550 1350 6550 1550
+Connection ~ 6550 1550
+Wire Wire Line
+	6550 1550 6950 1550
+Wire Wire Line
+	6350 1350 6350 1700
+Connection ~ 6350 1700
+Wire Wire Line
+	6350 1700 6150 1700
+Text GLabel 6150 1400 0    50   Input ~ 0
+~T0
+Text GLabel 6150 1550 0    50   Input ~ 0
+~WP
+Text GLabel 6150 1700 0    50   Input ~ 0
+~IDX
+Text GLabel 6150 1900 0    50   Input ~ 0
+BYTE
+Text GLabel 6150 2050 0    50   Input ~ 0
+AM
+Wire Wire Line
+	6150 1900 6950 1900
+Wire Wire Line
+	6150 2050 6950 2050
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 6333E601
+P 8950 1950
+F 0 "Q?" H 9155 1950 50  0001 L CNN
+F 1 "2N7000" H 9154 1905 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9150 1875 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 8950 1950 50  0001 L CNN
+	1    8950 1950
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 6333F838
+P 8750 1500
+F 0 "Q?" H 8955 1500 50  0001 L CNN
+F 1 "2N7000" H 8954 1455 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 8950 1425 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 8750 1500 50  0001 L CNN
+	1    8750 1500
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 633417D9
+P 9150 2400
+F 0 "Q?" H 9355 2400 50  0001 L CNN
+F 1 "2N7000" H 9354 2355 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9350 2325 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 9150 2400 50  0001 L CNN
+	1    9150 2400
+	1    0    0    -1  
+$EndComp
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 63342189
+P 9350 2850
+F 0 "Q?" H 9555 2850 50  0001 L CNN
+F 1 "2N7000" H 9554 2805 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9550 2775 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 9350 2850 50  0001 L CNN
+	1    9350 2850
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9450 2650 9450 2550
+Wire Wire Line
+	9450 2550 9900 2550
+Wire Wire Line
+	9250 2200 9250 2100
+Wire Wire Line
+	9250 2100 9900 2100
+Wire Wire Line
+	9050 1750 9050 1650
+Wire Wire Line
+	9050 1650 9900 1650
+Wire Wire Line
+	8850 1300 8850 1200
+Wire Wire Line
+	8850 1200 9900 1200
+Wire Wire Line
+	9150 2850 9100 2850
+Wire Wire Line
+	8950 2400 8400 2400
+Wire Wire Line
+	8750 1950 8400 1950
+Wire Wire Line
+	8550 1500 8400 1500
+$Comp
+L Transistor_FET:2N7000 Q?
+U 1 1 63351573
+P 9550 3300
+F 0 "Q?" H 9755 3300 50  0001 L CNN
+F 1 "2N7000" H 9754 3255 50  0001 L CNN
+F 2 "Package_TO_SOT_THT:TO-92_Inline" H 9750 3225 50  0001 L CIN
+F 3 "https://www.onsemi.com/pub/Collateral/NDS7002A-D.PDF" H 9550 3300 50  0001 L CNN
+	1    9550 3300
+	1    0    0    -1  
+$EndComp
+Wire Wire Line
+	9650 3100 9650 2900
+Wire Wire Line
+	9650 2900 9900 2900
+Wire Wire Line
+	9350 3300 9100 3300
+Wire Wire Line
+	9100 3300 9100 2850
+Connection ~ 9100 2850
+Wire Wire Line
+	9100 2850 8400 2850
+$Comp
+L power:VCC #PWR?
+U 1 1 633614CE
+P 6350 900
+F 0 "#PWR?" H 6350 750 50  0001 C CNN
+F 1 "VCC" H 6365 1073 50  0001 C CNN
+F 2 "" H 6350 900 50  0001 C CNN
+F 3 "" H 6350 900 50  0001 C CNN
+	1    6350 900 
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63361F71
+P 8850 1700
+F 0 "#PWR?" H 8850 1450 50  0001 C CNN
+F 1 "GND" H 8855 1527 50  0001 C CNN
+F 2 "" H 8850 1700 50  0001 C CNN
+F 3 "" H 8850 1700 50  0001 C CNN
+	1    8850 1700
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 6336265E
+P 9050 2150
+F 0 "#PWR?" H 9050 1900 50  0001 C CNN
+F 1 "GND" H 9055 1977 50  0001 C CNN
+F 2 "" H 9050 2150 50  0001 C CNN
+F 3 "" H 9050 2150 50  0001 C CNN
+	1    9050 2150
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 63362B4F
+P 9250 2600
+F 0 "#PWR?" H 9250 2350 50  0001 C CNN
+F 1 "GND" H 9255 2427 50  0001 C CNN
+F 2 "" H 9250 2600 50  0001 C CNN
+F 3 "" H 9250 2600 50  0001 C CNN
+	1    9250 2600
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 633630BD
+P 9450 3050
+F 0 "#PWR?" H 9450 2800 50  0001 C CNN
+F 1 "GND" H 9455 2877 50  0001 C CNN
+F 2 "" H 9450 3050 50  0001 C CNN
+F 3 "" H 9450 3050 50  0001 C CNN
+	1    9450 3050
+	1    0    0    -1  
+$EndComp
+$Comp
+L power:GND #PWR?
+U 1 1 633635D0
+P 9650 3500
+F 0 "#PWR?" H 9650 3250 50  0001 C CNN
+F 1 "GND" H 9655 3327 50  0001 C CNN
+F 2 "" H 9650 3500 50  0001 C CNN
+F 3 "" H 9650 3500 50  0001 C CNN
+	1    9650 3500
+	1    0    0    -1  
+$EndComp
+Text GLabel 9900 1200 2    50   Output ~ 0
+~DIR
+Text GLabel 9900 1650 2    50   Output ~ 0
+~STEP
+Text GLabel 9900 2100 2    50   Output ~ 0
+~SS0
+Text GLabel 9900 2550 2    50   Output ~ 0
+~DS0
+Text GLabel 9900 2900 2    50   Output ~ 0
+~LOAD
+Wire Wire Line
+	6350 1050 6350 1000
+Wire Wire Line
+	6350 1000 6550 1000
+Wire Wire Line
+	6750 1000 6750 1050
+Wire Wire Line
+	6550 1050 6550 1000
+Connection ~ 6550 1000
+Wire Wire Line
+	6550 1000 6750 1000
+Wire Wire Line
+	6350 900  6350 1000
+Connection ~ 6350 1000
+Wire Wire Line
+	7150 3100 7150 3350
+Wire Wire Line
+	7500 3100 7500 3350
+Wire Wire Line
+	7550 3100 7550 3350
+Wire Wire Line
+	7850 3100 7850 3350
+Wire Wire Line
+	7900 3100 7900 3350
+Wire Wire Line
+	7950 3100 7950 3350
+Wire Wire Line
+	8000 3100 8000 3350
+Wire Wire Line
+	8050 3100 8050 3350
+Wire Wire Line
+	8100 3100 8100 3350
+Wire Wire Line
+	8150 3100 8150 3350
+Wire Wire Line
+	8200 3100 8200 3350
+Entry Wire Line
+	7850 3350 7950 3450
+Entry Wire Line
+	7950 3350 8050 3450
+Entry Wire Line
+	8050 3350 8150 3450
+Entry Wire Line
+	8150 3350 8250 3450
+Entry Wire Line
+	7900 3350 8000 3450
+Entry Wire Line
+	8000 3350 8100 3450
+Entry Wire Line
+	8100 3350 8200 3450
+Entry Wire Line
+	8200 3350 8300 3450
+Wire Bus Line
+	8350 3450 8350 3650
+Wire Bus Line
+	8350 3650 8250 3650
+Text GLabel 8250 3650 0    50   3State ~ 0
+D[0..7]
+Wire Wire Line
+	7150 3350 7050 3350
+Wire Wire Line
+	7300 3600 7150 3600
+Wire Wire Line
+	7300 3100 7300 3600
+Entry Wire Line
+	7500 3350 7600 3450
+Entry Wire Line
+	7550 3350 7650 3450
+Wire Bus Line
+	7700 3450 7700 3650
+Wire Bus Line
+	7700 3650 7600 3650
+Text GLabel 7600 3650 0    50   Input ~ 0
+RS
+Text GLabel 7050 3350 0    50   Input ~ 0
+~CS
+Text GLabel 7150 3600 0    50   Input ~ 0
+R~W
+Wire Wire Line
+	9500 4750 9250 4750
+Wire Wire Line
+	9500 4700 9250 4700
+Wire Wire Line
+	9500 4600 9250 4600
+Wire Wire Line
+	9500 4500 9250 4500
+Wire Wire Line
+	9500 4400 9250 4400
+Wire Wire Line
+	9500 4650 9250 4650
+Wire Wire Line
+	9500 4550 9250 4550
+Wire Wire Line
+	9500 4450 9250 4450
+Wire Wire Line
+	9500 4350 9250 4350
+Entry Wire Line
+	9250 4750 9150 4650
+Entry Wire Line
+	9250 4650 9150 4550
+Entry Wire Line
+	9250 4550 9150 4450
+Entry Wire Line
+	9250 4450 9150 4350
+Entry Wire Line
+	9250 4350 9150 4250
+Entry Wire Line
+	9250 4700 9150 4600
+Entry Wire Line
+	9250 4600 9150 4500
+Entry Wire Line
+	9250 4500 9150 4400
+Entry Wire Line
+	9250 4400 9150 4300
+Wire Bus Line
+	9150 4200 8700 4200
+Text GLabel 8700 4200 0    50   Input ~ 0
+RD
+Text Notes 7550 2500 0    394  ~ 0
+?
+Text Notes 7450 1650 0    47   ~ 0
+CPU interface
+Text GLabel 6150 2700 0    50   Input ~ 0
+RDATA
+Entry Wire Line
+	6500 2650 6600 2550
+Entry Wire Line
+	6500 2550 6600 2450
+Entry Wire Line
+	6500 2450 6600 2350
+Entry Wire Line
+	6500 2350 6600 2250
+Entry Wire Line
+	6500 2600 6600 2500
+Entry Wire Line
+	6500 2500 6600 2400
+Entry Wire Line
+	6500 2400 6600 2300
+Entry Wire Line
+	6500 2300 6600 2200
+Wire Wire Line
+	6600 2200 6950 2200
+Wire Wire Line
+	6600 2300 6950 2300
+Wire Wire Line
+	6600 2400 6950 2400
+Wire Wire Line
+	6600 2500 6950 2500
+Wire Wire Line
+	6600 2250 6950 2250
+Wire Wire Line
+	6600 2350 6950 2350
+Wire Wire Line
+	6600 2450 6950 2450
+Wire Wire Line
+	6600 2550 6950 2550
+Entry Wire Line
+	6650 3100 6750 3000
+Entry Wire Line
+	6650 3000 6750 2900
+Entry Wire Line
+	6650 2900 6750 2800
+Entry Wire Line
+	6650 2800 6750 2700
+Entry Wire Line
+	6650 3050 6750 2950
+Entry Wire Line
+	6650 2950 6750 2850
+Entry Wire Line
+	6650 2850 6750 2750
+Entry Wire Line
+	6650 2750 6750 2650
+Wire Wire Line
+	6750 3000 6950 3000
+Wire Wire Line
+	6750 2900 6950 2900
+Wire Wire Line
+	6750 2800 6950 2800
+Wire Wire Line
+	6750 2700 6950 2700
+Wire Wire Line
+	6750 2950 6950 2950
+Wire Wire Line
+	6750 2850 6950 2850
+Wire Wire Line
+	6750 2750 6950 2750
+Wire Wire Line
+	6750 2650 6950 2650
+Wire Bus Line
+	6500 2700 6150 2700
+Wire Bus Line
+	6650 3150 6150 3150
+Text GLabel 6150 3150 0    50   Input ~ 0
+RCLK
+Wire Bus Line
+	7600 3450 7700 3450
+Wire Bus Line
+	7950 3450 8350 3450
+Wire Bus Line
+	6650 2750 6650 3150
+Wire Bus Line
+	6500 2300 6500 2700
+Wire Bus Line
+	9150 4200 9150 4650
+$EndSCHEMATC

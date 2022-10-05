@@ -1,6 +1,6 @@
 # Floppy Disc interface for 6502
 
-<!--<img src="hardware/schematic.png" title="Simple VGA circuit schematics"> -->
+<a href="hardware/schematic.png"><img src="hardware/schematic.png" width="350" title="Floppy Disk Controller schematic"></a>
 
 # Source code
 
@@ -15,7 +15,7 @@ environment to test in.
 
 # Hardware schematics
 
-To follow
+Please refer to the [hardware](hardware) folder for the Kicad project.
 
 # Test programs
 
