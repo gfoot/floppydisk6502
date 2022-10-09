@@ -1,4 +1,4 @@
-# Floppy Disc interface for 6502
+# Floppy Disk interface for 6502
 
 <a href="hardware/schematic.png"><img src="hardware/schematic.png" width="350" title="Floppy Disk Controller schematic"></a>
 
