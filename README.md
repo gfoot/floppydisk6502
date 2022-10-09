@@ -28,6 +28,16 @@ it performs some head manoeuvres to test the seek function, then each time the
 button is pressed, it reads the first 10 bytes of the next field it finds on
 the disk on track 10.
 
+'floppytest3' attempts to read sectors 0-9 of a track into memory, verifying 
+the CRCs etc were correct
+
+'floppydump.s' scans all tracks of an 80-track disk for sectors and lists what
+it finds
+
+'floppyimageload.s' loads 640x480x3bpp image data from tracks 1-48 and unpacks
+the data into video memory.  Each sector contains one row of the display.
+
+
 # Feedback
 
 Do let me know if you have any comments, questions, requests, or other feedback!  
