@@ -124,7 +124,7 @@ printimm:
   rts
 
 
-printmessage_bufferptr = $80
+printmessage_bufferptr = $10
 
 printmessage:
   pha
