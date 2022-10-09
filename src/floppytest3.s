@@ -7,6 +7,7 @@
   .include lib/hwconfig.s
   .include lib/fdc.s
 
+ZP_SEEKSECTOR = $80
 
 reset:
   ldx #$ff
@@ -44,64 +45,47 @@ reset:
 
   jsr fdc_motoron
 
-  jsr show_fdc_status
+  jsr vid_printstringimm
+  .asciiz "Seeking to track 10..."
   jsr vid_textpos_newline
-  jsr prompt_wait_button
 
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
+  lda #10
+  jsr fdc_seek
 
-  jsr show_fdc_status
+  ldx #0
+  stx ZP_SEEKSECTOR
+
+  stx ZP_FDC_ADDR
+  ldx #$30
+  stx ZP_FDC_ADDR+1
+
+loop:
+
+  jsr vid_printstringimm
+  .asciiz "Reading into memory sector "
+
+  lda ZP_SEEKSECTOR
+  jsr vid_printhex
+
   jsr vid_textpos_newline
-  jsr prompt_wait_button
 
-  jsr fdc_seek_track0
+  lda ZP_SEEKSECTOR
+  jsr fdc_read_sector
 
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
+  jsr fdc_reporterror
 
-loop1:
-  jsr fdc_step_in
-  
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop1
+  inc ZP_SEEKSECTOR
+  lda ZP_SEEKSECTOR
+  cmp #10
+  bne loop
 
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
+  jsr vid_printstringimm
+  .asciiz "Done"
 
-  jsr fdc_seek_track0
-
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
+  jsr fdc_motoroff
 
 loop2:
-  jsr fdc_step_in
-  jsr show_fdc_status
-
-  ldx #30
-  jsr delay_vsyncs
-
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop2
-
-  ldx #30
-  jsr delay_vsyncs
-
-  jsr fdc_seek_track0
-  jsr show_fdc_status
-
-  ldx #30
-  jsr delay_vsyncs
-
-  jmp loop1
-
+  jmp loop2
 
 delay_vsyncs:
   jsr wait_vsync

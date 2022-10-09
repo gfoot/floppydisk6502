@@ -7,6 +7,9 @@
   .include lib/hwconfig.s
   .include lib/fdc.s
 
+ZP_SEEKSECTOR = $80
+ZP_YCOORD = $81     ; 2 bytes
+BUFFER = $2000
 
 reset:
   ldx #$ff
@@ -44,63 +47,98 @@ reset:
 
   jsr fdc_motoron
 
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
-  jsr fdc_step_in
-
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
   jsr fdc_seek_track0
 
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
+  lda #<BUFFER
+  sta ZP_FDC_ADDR
+  lda #>BUFFER
+  sta ZP_FDC_ADDR+1
 
-loop1:
+  lda #<479
+  sta ZP_YCOORD
+  lda #>479
+  sta ZP_YCOORD+1
+
+.trackloop:
   jsr fdc_step_in
+
+  lda #0
+  sta ZP_SEEKSECTOR
+
+.sectorloop:
+  lda ZP_SEEKSECTOR
+  jsr fdc_read_sector
+
+  ; Write the blue and green channels
+  lda ZP_YCOORD+1
+  ora #4
+  tay
+  lda ZP_YCOORD
+  jsr vram_openline
+
+  ldx #160
+  ldy #160
+.bluegreenxloop
+  dex
+  lda BUFFER,x
+  dey
+  sta (ZP_PTR),y
+  bne .bluegreenxloop
+
+  ; Write the red channel
+  lda ZP_YCOORD+1
+  ora #8
+  tay
+  lda ZP_YCOORD
+  jsr vram_openline
+
+  ldx #240
+  ldy #160
+.redxloop
+  dex
+  lda BUFFER,x
+  and #BITS_PIXELDATA
+  ora #BITS_DEFAULT
+
+  dey
+  sta (ZP_PTR),y
+
+  lda BUFFER,x
+  lsr
+  lsr
+  lsr
+  lsr
+  ora #BITS_DEFAULT
+
+  dey
+  sta (ZP_PTR),y
+
+  bne .redxloop
+
+  ; Next screen line
+  lda ZP_YCOORD
+  bne .nextlinenocarry
+  dec ZP_YCOORD+1
+  bmi .done
+.nextlinenocarry
+  dec ZP_YCOORD
+
+  ; Next sector
+  ldx ZP_SEEKSECTOR
+  inx
+  stx ZP_SEEKSECTOR
+  cpx #10
+  bne .sectorloop
+
+  ; Next track
+  jmp .trackloop
+
+.done
+  jsr fdc_motoroff
+
   
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop1
-
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
-  jsr fdc_seek_track0
-
-  jsr show_fdc_status
-  jsr vid_textpos_newline
-  jsr prompt_wait_button
-
-loop2:
-  jsr fdc_step_in
-  jsr show_fdc_status
-
-  ldx #30
-  jsr delay_vsyncs
-
-  lda ZP_FDC_TRACK
-  cmp #39
-  bmi loop2
-
-  ldx #30
-  jsr delay_vsyncs
-
-  jsr fdc_seek_track0
-  jsr show_fdc_status
-
-  ldx #30
-  jsr delay_vsyncs
-
-  jmp loop1
+stop:
+  jmp stop
 
 
 delay_vsyncs:

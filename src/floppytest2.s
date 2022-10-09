@@ -5,22 +5,7 @@
   .include lib/lcd.s
   .include lib/via.s
   .include lib/hwconfig.s
-
-FDC_CTL_MOTORON = 1
-FDC_CTL_DIR = 2
-FDC_CTL_STEP = 4
-FDC_CTL_SS0 = 8
-
-FDC_STATUS_T0 = 1
-FDC_STATUS_IDX = 2
-FDC_STATUS_BYTE = 4
-
-fdc_ctl = $4000
-fdc_status = $4001
-fdc_clock = $4002
-fdc_data = $4003
-
-ZP_FDC_TRACK = $40
+  .include lib/fdc.s
 
 reset:
   ldx #$ff
@@ -45,7 +30,7 @@ reset:
   sty ZP_TEXTPOS_Y
   sty ZP_TEXTPOS_Y+1
 
-  sty ZP_FDC_TRACK
+  jsr fdc_init
 
   jsr vid_printstringimm
   .asciiz "Hello, World!"
@@ -56,8 +41,7 @@ reset:
   jsr vid_textpos_newline
   jsr prompt_wait_button
 
-  lda #FDC_CTL_MOTORON
-  sta fdc_ctl
+  jsr fdc_motoron
 
   jsr fdc_seek_track0
 
@@ -171,153 +155,6 @@ readtest_dispdatabytes_loop:
   rts
 
 
-
-fdc_read_byte:
-  ; Wait until "byte" is low; then wait until "byte" is high; then read the clock into X and data into A and return
-
-  lda #FDC_STATUS_BYTE
-
-fdc_read_byte_wait_notbyte:
-  bit fdc_status
-  bne fdc_read_byte_wait_notbyte
-
-fdc_read_byte_wait_byte:
-  bit fdc_status
-  beq fdc_read_byte_wait_byte
-
-  lda fdc_data
-  ldx fdc_clock
-  rts
-
-
-
-fdc_step_in:
-  lda #FDC_CTL_MOTORON | FDC_CTL_DIR | FDC_CTL_STEP
-  sta fdc_ctl
-  jsr wait_vsync
-  
-  lda #FDC_CTL_MOTORON | FDC_CTL_DIR
-  sta fdc_ctl
-  jsr wait_vsync
-
-  inc ZP_FDC_TRACK
-
-  rts
-
-fdc_step_out:
-  lda #FDC_CTL_MOTORON | FDC_CTL_STEP
-  sta fdc_ctl
-  jsr wait_vsync
-
-  lda #FDC_CTL_MOTORON
-  sta fdc_ctl
-  jsr wait_vsync
-
-  dec ZP_FDC_TRACK
-  lda fdc_status
-  and #FDC_STATUS_T0
-  beq fdc_set_track_0
-
-  rts
-
-fdc_set_track_0:
-  lda #0
-  sta ZP_FDC_TRACK
-  rts
-
-
-fdc_seek_track0:
-  lda fdc_status
-  and #FDC_STATUS_T0
-  beq fdc_seek_track0_done
-  
-  jsr fdc_step_out
-  jmp fdc_seek_track0
-
-fdc_seek_track0_done:
-  rts
-
-
-fdc_seek:
-  pha
-  jsr vid_printstringimm
-  .asciiz "Seek to track "
-  pla
-
-  jsr vid_printhex
-
-  pha
-  jsr vid_textpos_newline
-  pla
-
-  cmp #0
-  beq fdc_seek_track0
-fdc_seek_loop:
-  pha
-  jsr show_fdc_status
-  pla
-
-  cmp ZP_FDC_TRACK
-  bmi fdc_seek_step_out
-  bne fdc_seek_step_in
-
-  jmp vid_textpos_newline
-
-fdc_seek_step_in:
-  pha
-  jsr fdc_step_in
-  pla
-  jmp fdc_seek_loop
-
-fdc_seek_step_out:
-  pha
-  jsr fdc_step_out
-  pla
-  jmp fdc_seek_loop
-
-
-
-show_fdc_status:
-  lda #0
-  sta ZP_TEXTPOS_X
-
-  jsr vid_printstringimm
-  .asciiz "FDC status: track $"
-
-  lda ZP_FDC_TRACK
-  jsr vid_printhex
-
-  jsr vid_printstringimm
-  .asciiz "  flags:             "
-
-  sec
-  lda ZP_TEXTPOS_X
-  sbc #24
-  sta ZP_TEXTPOS_X
-
-  lda fdc_status
-  ror
-  bcs show_fdc_status_not_t0
-  pha
-  jsr vid_printstringimm
-  .asciiz "T0 "
-  pla
-show_fdc_status_not_t0:
-  ror
-  bcs show_fdc_status_not_idx
-  pha
-  jsr vid_printstringimm
-  .asciiz "IDX "
-  pla
-show_fdc_status_not_idx:
-  ror
-  bcs show_fdc_status_not_byte
-  pha
-  jsr vid_printstringimm
-  .asciiz "BYTE "
-  pla
-show_fdc_status_not_byte:
-  rts
 
 
 delay_vsyncs:

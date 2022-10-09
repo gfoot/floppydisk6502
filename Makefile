@@ -1,4 +1,8 @@
-BINFILES += bin/floppytest.out bin/floppytest2.out
+BINFILES += bin/floppytest.out
+BINFILES += bin/floppytest2.out
+BINFILES += bin/floppytest3.out
+BINFILES += bin/floppydump.out
+BINFILES += bin/floppyimageload.out
 
 all: $(BINFILES)
 
